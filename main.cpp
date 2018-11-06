@@ -8,7 +8,6 @@ using namespace std;
 
 set<string> dictionary;
 ofstream out_data_short("TopWordsShort.txt");
-ofstream out_data_final("FinalWords.txt");
 
 void setDictionary() {
     ifstream inFile;
