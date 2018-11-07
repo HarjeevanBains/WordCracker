@@ -7,7 +7,8 @@
 using namespace std;
 
 set<string> dictionary;
-ofstream out_data_short("TopWordsShort.txt");
+set<string> finalWords;
+
 
 void setDictionary() {
     ifstream inFile;
@@ -32,7 +33,7 @@ void generate1(string word, int start, int length, int size) {
         int big = temp.length() - size;
         temp.erase(temp.end() - big, temp.end());
         if (check(temp)) {
-            out_data_short << temp << endl;
+            finalWords.insert(temp);
         }
     } else {
         for (i = start; i <= length; i++) {
@@ -43,19 +44,9 @@ void generate1(string word, int start, int length, int size) {
     }
 }
 
-void shrink() {
-    ifstream inFile;
-    inFile.open("TopWordsShort.txt");
-    set<string> words;
+void print(){
     set<string>::iterator wordsIT;
-    string currentWord;
-    while (inFile >> currentWord) {
-        string temp = currentWord;
-        if (words.find(temp) == words.end()) {
-            words.insert(temp);
-        }
-    }
-    for (wordsIT = words.begin(); wordsIT != words.end(); ++wordsIT) {
+    for (wordsIT = finalWords.begin(); wordsIT != finalWords.end(); ++wordsIT) {
         cout << (*wordsIT) << endl;
     }
 }
@@ -71,7 +62,7 @@ int main() {
     int length = word.length();
     generate1(word, 0, length - 1, size);
     cout << "Possible words: " << endl;
-    shrink();
+    print();
     cout << "" << endl;
     cout << "DONE" << endl;
     return 0;
